@@ -18,11 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Working with user identity.
-app.use('/api/', routes.signinRoute, routes.signupRoute, routes.employeeRoute);
+app.use('/api/', routes.signinRoute, routes.signupRoute);
 
 // Locking all private routes globally with help of 'passport' middleware.
-// app.use(passport.authenticate('jwt', { session: false }));
-// app.use('/api/', routes.employeeRoute);
+app.use(passport.authenticate('jwt', { session: false }));
+app.use('/api/', routes.employeeRoute, routes.userRoute);
 
 // Server start and connect to DB.
 (async () => {

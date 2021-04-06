@@ -1,27 +1,25 @@
-import React, { Fragment, useState } from 'react';
-import axios from 'axios';
+import React, { Fragment, useContext, useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Form, FormGroup, Input, Label } from 'reactstrap';
+
+import { AuthContext } from '../../contexts/authContext';
 
 const Signup = () => {
 
-    const [users, setUsers] = useState([]);
+    // Отримуємо функцію реєстрації з контексту.
+    const { signup } = useContext(AuthContext);
 
     const [createLogin, setCreateLogin] = useState('');
     const [createEmail, setCreateEmail] = useState('');
     const [createPassword, setCreatePassword] = useState('');
 
-    ////////////////// HTTP REQUESTS ///////////////////
-
-    // POST
     const submitUserHandler = async () => {
         try {
-            const newUser = await axios.post('http://localhost:5000/api/signup/', {
+            signup({
                 login: createLogin,
                 email: createEmail,
                 password: createPassword,
             });
-            const updUsers = users.concat({ ...newUser.data });
-            setUsers(updUsers);
+            console.log('Тут буде код перенаправлення на сторінку авторизації.')
         } catch (err) {
             console.error(err);
         };
@@ -31,7 +29,7 @@ const Signup = () => {
 
     return (
         <Fragment>
-            <br/>
+            <br />
             <Card outline color='secondary'>
                 <CardHeader>
                     <h1>Registration</h1>

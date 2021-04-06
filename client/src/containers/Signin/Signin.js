@@ -1,26 +1,23 @@
-import React, { Fragment, useState } from 'react';
-import axios from 'axios';
+import React, { Fragment, useContext, useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Form, FormGroup, Input, Label } from 'reactstrap';
+
+import { AuthContext } from '../../contexts/authContext';
 
 const Signin = () => {
 
-    const [users, setUsers] = useState([]);
+    // Отримуємо функцію авторизації з контексту.
+    const { signin } = useContext(AuthContext);
 
     const [createEmail, setCreateEmail] = useState('');
     const [createPassword, setCreatePassword] = useState('');
 
-    ////////////////// HTTP REQUESTS ///////////////////
-
-    // POST
+    // Беремо дані з форми авторизації та спрямовуємо їх у функцію авторизації, яку раніше отримали з контексту.
     const submitUserHandler = async () => {
         try {
-            const newUser = await axios.post('http://localhost:5000/api/signin/', {
+            signin({
                 email: createEmail,
                 password: createPassword,
             });
-            console.log(newUser)
-            const updUsers = users.concat({ ...newUser.data });
-            setUsers(updUsers);
         } catch (err) {
             console.error(err);
         };
@@ -30,7 +27,7 @@ const Signin = () => {
 
     return (
         <Fragment>
-            <br/>
+            <br />
             <Card outline color='secondary'>
                 <CardHeader>
                     <h1>Authorization</h1>

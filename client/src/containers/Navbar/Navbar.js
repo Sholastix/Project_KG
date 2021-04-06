@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import cssStyles from './Navbar.module.css';
+
+import { AuthContext } from '../../contexts/authContext'
 
 import Homepage from '../../components/Homepage/Homepage';
 import Employee from '../Employee/Employee';
@@ -9,6 +11,9 @@ import Signin from '../Signin/Signin';
 import Signup from '../Signup/Signup';
 
 const Navbar = () => {
+
+    // Дістаємо з контексту функцію віходу з облікового запису.  
+    const { signout } = useContext(AuthContext);
 
     return (
         <Router>
@@ -26,6 +31,9 @@ const Navbar = () => {
                     </Link>
                     <Link className={cssStyles.navRefs} to='/signup'>
                         <li>SignUp</li>
+                    </Link>
+                    <Link className={cssStyles.navRefs} to='/' onClick={signout}>
+                        <li>SignOut</li>
                     </Link>
                 </ul>
             </nav>
