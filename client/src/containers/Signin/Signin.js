@@ -14,7 +14,7 @@ const Signin = () => {
     // Беремо дані з форми авторизації та спрямовуємо їх у функцію авторизації, яку раніше отримали з контексту.
     const submitUserHandler = async () => {
         try {
-            signin({
+            await signin({
                 email: createEmail,
                 password: createPassword,
             });

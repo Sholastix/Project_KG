@@ -14,7 +14,7 @@ const Signup = () => {
 
     const submitUserHandler = async () => {
         try {
-            signup({
+            await signup({
                 login: createLogin,
                 email: createEmail,
                 password: createPassword,

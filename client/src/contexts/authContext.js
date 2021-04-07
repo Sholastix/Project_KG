@@ -21,7 +21,7 @@ const Auth = ({ children }) => {
 
     const [token, setToken] = useState();
 
-    // Флаг перевірки, авторизовано юзера чи ні. За замовчанням - 'не авторизовано', значення "false".
+    // Флаг перевірки відпрацювання функції перевірки авторизації юзера. За замовчанням - 'не виконано', значення "false".
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -35,13 +35,15 @@ const Auth = ({ children }) => {
             setToken(token);
             const user = await getUserReq(token);
             setUser(user);
-            // Змінюємо флаг перевірки авторизації на 'авторизовано', значення "true".
+            // Змінюємо флаг перевірки авторизації на 'виконано', значення "true".
             setIsAuthenticated(true);
         } catch (err) {
             console.error(err);
             // При невдалій авторизації видаляємо токен з локального сховища.
             localStorage.removeItem('token');
-            console.log('Authorization process failed!')
+            console.log('Authorization process failed!');
+            // Функція перевірки авторизації виконана. Змінюємо на "true", щоб прибрати індикатор виконання процесу (спінер).
+            setIsAuthenticated(true);
         };
     };
 
@@ -50,7 +52,7 @@ const Auth = ({ children }) => {
         try {
             await signupReq(data);
         } catch (err) {
-            console.error(err);
+            throw err;
         };
     };
 
@@ -64,7 +66,7 @@ const Auth = ({ children }) => {
             // Перевіряємо авторизацію користувача.
             checkAuth();
         } catch (err) {
-            console.error(err);
+            throw err;
         };
     };
 
@@ -76,7 +78,7 @@ const Auth = ({ children }) => {
             setUser(null);
             localStorage.removeItem('token');
         } catch (err) {
-            console.error(err);
+            throw err;
         };
     };
 

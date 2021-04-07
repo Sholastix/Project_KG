@@ -13,7 +13,7 @@ export const signupReq = async (data) => {
         // const res = await axios.post('http://localhost:5000/api/signup', data);
         // return res.data;
     } catch (err) {
-        console.error(err);
+        throw err;
     };
 };
 
@@ -28,7 +28,7 @@ export const signinReq = async (data) => {
         // const res = await axios.post('http://localhost:5000/api/signin', data);
         // return res.data;
     } catch (err) {
-        console.error(err);
+        throw err;
     };
 };
 
@@ -47,6 +47,6 @@ export const getUserReq = async (token) => {
         // });
         // return res.data;
     } catch (err) {
-        console.error(err);
+        throw err;
     };
 };
